@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@font-face {
+  font-family: DooM;
+  src: url(DooM.ttf);
+}
+
 .zoom {
     padding: 50px;
     background-color: rgb(204, 204, 204);
@@ -19,24 +26,61 @@
   }
 
 .subzoom {
-    padding: 30px;
-    transition: transform .2s; /* Animation */
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
+  background-color: white;
+    padding: 0px;
+    width: 140px;
+    height: 140px;
+    margin: 30px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+  }
 
+  .subzoom img{
+    transition: transform 0.5s, filter 0.5s; /* Animation */
+    transform: perspective(150px);
+    width: inherit;
+    height: inherit;
+    transform-style: preserve-3d;
+    transition-timing-function: ease-in-out;
   }
   
-  .subzoom:hover {
-    transform: scale(1.3); 
+  .subzoom:hover img{
+    transform: translate(0px,-140px);
+    filter:brightness(60%)
   }
+
+  .subzoom p{
+    transition: filter 0.5s;
+    position: absolute;
+    text-wrap: wrap;
+    transition-timing-function: linear;
+    filter: blur(5px);
+    font-family: 'DooM';
+  }
+
+  .subzoom:hover p {
+    filter: blur(0px);
+  }
+
+.burgerboy {
+  z-index: 500;
+  position:fixed;
+  left: 10px;
+  bottom: -1px;
+}
+
+.burgerboy a {
+  visibility: hidden;
+}
+.burgerboy:hover a {
+  visibility: visible;
+}
+
 
 body {
     background-color:white;
-
+    font-family: "Shantell sans";
   }
