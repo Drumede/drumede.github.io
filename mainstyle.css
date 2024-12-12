@@ -170,14 +170,23 @@ a.profbutton img {
 }
 
 body {
-  background-image: linear-gradient(50deg,green,#004cff);
   font-family: "Shantell sans";
   color: white;
   }
-
 h1 {
   font-family: "DooM";
 }
 h2 {
   font-family: "DooM";
+}
+
+.bg {
+  background-image: linear-gradient(50deg,green,#004cff);
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: -1000000;
 }
