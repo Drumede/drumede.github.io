@@ -5,12 +5,38 @@
   src: url(DooM.ttf);
 }
 
+@keyframes pfpanim {
+  0% {transform: translate(-100px,0px);}
+  100% {transform: translate(100px,0px);}
+}
+
+.pfp {
+  background-image: url("drumpfpanimhighreshighfps.gif");
+  background-size: cover;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation-name: pfpanim;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+
+
 .zoom {
     padding: 50px;
-    background-color: rgb(204, 204, 204);
+    background-image: linear-gradient(-50deg,#24ffa8,#00ddff);
     transition: transform .2s; /* Animation */
     width: 500px;
-    height: 100px;
+    height: 140px;
     margin: 0 auto;
     text-align: center;
     display: flex;
@@ -25,17 +51,33 @@
     transform: scale(1.05); 
   }
 
+  .zoom h2{
+    transition: transform .5s, text-shadow .5s; /* Animation */
+    position: absolute;
+    transform: translate(0px,-95px);
+    text-shadow: 0px 0px 0px #727272;
+    text-wrap: nowrap;
+  }
+
+  .zoom:hover h2 {
+    transform: scale(1.2) translate(0px,-80px);
+    text-shadow: 2px 2px 2px #727272;
+
+  }
+
 .subzoom {
-  background-color: white;
+    background-color: white;
     padding: 0px;
     width: 140px;
     height: 140px;
-    margin: 30px;
+    margin: 23px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    border-style: inset;
+    border-width: 4px;
   }
 
   .subzoom img{
@@ -52,17 +94,31 @@
     filter:brightness(60%)
   }
 
+
   .subzoom p{
-    transition: filter 0.5s;
+    transition: filter 0.5s, transform 0.5s, text-shadow 0.5s;
+    width: inherit;
+    height: inherit;
     position: absolute;
     text-wrap: wrap;
     transition-timing-function: linear;
-    filter: blur(5px);
-    font-family: 'DooM';
+    filter: blur(3px);
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    transform: scale(0.95);
+    text-shadow: 0px 0px 0px #ababab;
+    font-weight: bold;
+    flex-direction: column;
   }
 
   .subzoom:hover p {
     filter: blur(0px);
+    transform: scale(1.1);
+    text-shadow: 5px 5px 5px #ababab;
+
   }
 
 .burgerboy {
@@ -79,8 +135,47 @@
   visibility: visible;
 }
 
+a.profbutton {
+  transition: transform .2s, box-shadow .2s;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  border-radius: 100px;
+  text-decoration: none;
+  box-shadow: 0px 0px 0px #ababab;
+}
+
+a.profbutton:hover {
+  transform: scale(1.2);
+  box-shadow: 3px 3px 3px #ababab;
+}
+
+a.profbutton img {
+  width: 20px;
+  position: absolute;
+  border-radius: 7px;
+}
+
+.buttons {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:600px;
+}
 
 body {
     background-color:white;
     font-family: "Shantell sans";
   }
+
+h1 {
+  font-family: "DooM";
+}
+h2 {
+  font-family: "DooM";
+}
