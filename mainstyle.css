@@ -10,6 +10,11 @@
   100% {transform: translate(100px,0px);}
 }
 
+@keyframes freakfield {
+  0% {transform: translate(-0px,0px);}
+  100% {transform: translate(300px,0px);}
+}
+
 .pfp {
   background-image: url("drumpfpanimhighreshighfps.gif");
   background-size: cover;
