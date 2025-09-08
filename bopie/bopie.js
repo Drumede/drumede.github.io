@@ -144,18 +144,19 @@ var bopieInterval = setInterval(function() {
         posY = window.innerHeight-height
     }
 
+    posX += dirx*3
+    posY += diry*3
     
     if (isMouseDown) {
-        var rmx = mouseX - posX
-        var rmy = mouseY - posY
+        var rmx = mouseX - posX + width/2
+        var rmy = mouseY - posY + height/2
         var md = Math.atan2(rmy,rmx)
         posX += Math.cos(md)*5
         posY += Math.sin(md)*5
         bopie.style.transform = "rotate("+radiansToDegrees(md)+"deg)"
         bopie.style.backgroundImage = "url(bopiemouse.svg)"
     } else {
-        posX += dirx*3
-        posY += diry*3
+       
         bopie.style.transform = ""
     }
 
