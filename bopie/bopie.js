@@ -8,6 +8,11 @@ const parser = new DOMParser();
 var bopiestyle = window.getComputedStyle(bopie);
 var mouseX = 0
 var mouseY = 0
+const music1 = document.getElementById('music1');
+const music2 = document.getElementById('music2');
+const bopieyaysfx = document.getElementById('bopieyay');
+const treehit = document.getElementById('treehit');
+
 
 //bopie.style.left = 100 + "px";
 //bopie.style.top = 100 + "px";
@@ -16,6 +21,22 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+
+music1.addEventListener('ended', () => {
+    if (getRandomInt(1,2) == 1 )
+        music1.play()
+    else 
+        music2.play()
+});
+
+music2.addEventListener('ended', () => {
+    if (getRandomInt(1,2) == 1 )
+        music1.play()
+    else 
+        music2.play()
+});
 
 function checkOverlap(div1, div2) {
   const rect1 = div1.getBoundingClientRect();
@@ -34,16 +55,32 @@ function getVectorLength(x, y) {
   return Math.sqrt(x * x + y * y);
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function bopieyay() {
+    bopie.style.backgroundImage = "url(bopieyay.svg)"
+    bopieyaysfx.play()
+    setTimeout(function() {
+        bopie.style.backgroundImage = "url(bopie.svg)"
+    }, 400);
+    setTimeout(bopieyay, getRandomInt(3000,5000));
+}
+
+function radiansToDegrees(radians) {
+  return radians * (180 / Math.PI);
+}
+
 let isMouseDown = false;
 
 document.addEventListener('mousedown', () => {
     isMouseDown = true;
-    console.log('Mouse button is down');
 });
 
 document.addEventListener('mouseup', () => {
     isMouseDown = false;
-    console.log('Mouse button is up');
+    bopie.style.backgroundImage = "url(bopie.svg)"
 });
 
 document.addEventListener('mousemove', (event) => {
@@ -51,6 +88,16 @@ document.addEventListener('mousemove', (event) => {
    mouseY = event.clientY; // Y-coordinate relative to the viewport
 });
 
+window.addEventListener('load', () => {
+    setTimeout(function() {
+        if (getRandomInt(1,2) == 1 )
+            music1.play()
+        else 
+            music2.play()
+    },1000)
+    
+    setTimeout(bopieyay, getRandomInt(3000,5000));
+});
 
 var bopieInterval = setInterval(function() {
     var posX = parseInt(bopie.style.left.replace(/px$/, '')) || 0;
@@ -102,12 +149,14 @@ var bopieInterval = setInterval(function() {
         var rmx = mouseX - posX
         var rmy = mouseY - posY
         var md = Math.atan2(rmy,rmx)
-        console.log(md)
         posX += Math.cos(md)*5
         posY += Math.sin(md)*5
+        bopie.style.transform = "rotate("+radiansToDegrees(md)+"deg)"
+        bopie.style.backgroundImage = "url(bopiemouse.svg)"
     } else {
         posX += dirx*3
         posY += diry*3
+        bopie.style.transform = ""
     }
 
     // Set the new position
@@ -116,6 +165,7 @@ var bopieInterval = setInterval(function() {
     trees.forEach((tree,index) => {
         if (checkOverlap(bopie,tree)) {
             tree.remove()
+            treehit.play()
         }
     })
 }, 10);

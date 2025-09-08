@@ -9,9 +9,37 @@
     z-index: -1000000;
 }
 
+@keyframes bopiethumb {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 0;
+  }
+  100% {
+    left: 100vw;
+  }
+}
+
+.thumb {
+    background-image: url("bopiethumb.png");
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+    animation-name: bopiethumb;
+    animation-duration: 2s;
+    animation-iteration-count: 1; /* Plays once */
+    animation-fill-mode: forwards; /* Stays at the end state */
+    animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+}
+
 .bopie {
     position: absolute; 
-    background-image: url('bopie.png'); 
+    background-image: url('bopie.svg'); 
     width: 102px; 
     height: 68px;
     background-size: 100% 100%;
@@ -20,7 +48,7 @@
 
 .tree {
     position: absolute; 
-    background-image: url('tree.png'); 
+    background-image: url('tree.svg'); 
     width: 80px; 
     height: 120px;
     background-size: 100% 100%;
