@@ -1,0 +1,26 @@
+.bg {
+    background-color: lime;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -1000000;
+}
+
+.bopie {
+    position: absolute; 
+    background-image: url('bopie.png'); 
+    width: 102px; 
+    height: 68px;
+    background-size: 100% 100%;
+}
+
+.tree {
+    position: absolute; 
+    background-image: url('tree.png'); 
+    width: 80px; 
+    height: 120px;
+    background-size: 100% 100%;
+}
