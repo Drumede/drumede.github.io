@@ -148,8 +148,8 @@ var bopieInterval = setInterval(function() {
     posY += diry*3
     
     if (isMouseDown) {
-        var rmx = mouseX - posX + width/2
-        var rmy = mouseY - posY + height/2
+        var rmx = mouseX - posX - width/2
+        var rmy = mouseY - posY - height/2
         var md = Math.atan2(rmy,rmx)
         posX += Math.cos(md)*5
         posY += Math.sin(md)*5
