@@ -12,7 +12,10 @@ const music1 = document.getElementById('music1');
 const music2 = document.getElementById('music2');
 const bopieyaysfx = document.getElementById('bopieyay');
 const treehit = document.getElementById('treehit');
-
+var wood = 0;
+var fruit = 0;
+var hunger = 0;
+var hp = 10;
 
 //bopie.style.left = 100 + "px";
 //bopie.style.top = 100 + "px";
@@ -72,6 +75,11 @@ function radiansToDegrees(radians) {
   return radians * (180 / Math.PI);
 }
 
+function editReporter(id,value) {
+    var reporter = document.getElementById(id)
+    reporter.textContent = value
+}
+
 let isMouseDown = false;
 
 document.addEventListener('mousedown', () => {
@@ -90,13 +98,14 @@ document.addEventListener('mousemove', (event) => {
 
 window.addEventListener('load', () => {
     setTimeout(function() {
-        if (getRandomInt(1,2) == 1 )
+        document.addEventListener('mousedown', () => {
+            if (getRandomInt(1,2) == 1 )
             music1.play()
         else 
             music2.play()
+        setTimeout(bopieyay, getRandomInt(3000,5000));
+        },{once:true});
     },1000)
-    
-    setTimeout(bopieyay, getRandomInt(3000,5000));
 });
 
 var bopieInterval = setInterval(function() {
@@ -123,6 +132,21 @@ var bopieInterval = setInterval(function() {
                 diry = 0
         }
     }
+
+    posX += dirx*3
+    posY += diry*3
+    if (isMouseDown) {
+        var rmx = mouseX - posX - width/2
+        var rmy = mouseY - posY - height/2
+        var md = Math.atan2(rmy,rmx)
+        posX += Math.cos(md)*5
+        posY += Math.sin(md)*5
+        bopie.style.transform = "rotate("+radiansToDegrees(md)+"deg)"
+        bopie.style.backgroundImage = "url(bopiemouse.svg)"
+    } else {
+        bopie.style.transform = ""
+    }
+
     if (posX < 0) {
         movingX = getRandomInt(5,20)
         dirx *= -1
@@ -144,22 +168,6 @@ var bopieInterval = setInterval(function() {
         posY = window.innerHeight-height
     }
 
-    posX += dirx*3
-    posY += diry*3
-    
-    if (isMouseDown) {
-        var rmx = mouseX - posX - width/2
-        var rmy = mouseY - posY - height/2
-        var md = Math.atan2(rmy,rmx)
-        posX += Math.cos(md)*5
-        posY += Math.sin(md)*5
-        bopie.style.transform = "rotate("+radiansToDegrees(md)+"deg)"
-        bopie.style.backgroundImage = "url(bopiemouse.svg)"
-    } else {
-       
-        bopie.style.transform = ""
-    }
-
     // Set the new position
     bopie.style.left = posX + "px";
     bopie.style.top = posY + "px";
@@ -167,18 +175,32 @@ var bopieInterval = setInterval(function() {
         if (checkOverlap(bopie,tree)) {
             tree.remove()
             treehit.play()
+            wood += 1
+            fruit += parseInt(tree.textContent)
+            editReporter("wood",wood)
+            editReporter("fruit",fruit)
         }
     })
 }, 10);
 
 var treeInterval = setInterval(function() {
-    const tree = document.createElement("div")
+    var tree = document.createElement("div")
     tree.className = "tree"
     document.body.appendChild(tree)
     var treestyle = window.getComputedStyle(tree);
     var width = parseInt(treestyle.width.replace(/px$/, '')) || 0;
     var height = parseInt(treestyle.height.replace(/px$/, '')) || 0;
+    var treetype = getRandomInt(1,100)
+    if (treetype > 90) {
+        treetype = 2
+    } else if (treetype > 50) {
+        treetype = 1
+    } else {
+        treetype = 0
+    }
     tree.style.top = getRandomInt(0,window.innerHeight-height)+"px"
     tree.style.left = getRandomInt(0,window.innerWidth-width)+"px"
+    tree.style.backgroundImage = "url(tree"+treetype+"apple.svg)"
+    tree.textContent = treetype
     trees.push(tree)
 },1000);

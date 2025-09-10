@@ -21,6 +21,15 @@
   }
 }
 
+@keyframes treegrow {
+  0% {
+    transform: scale(0%) translate(0,40%);
+  }
+  100% {
+    transform: scale(100%) translate(0,0);
+  }
+}
+
 .thumb {
     background-image: url("bopiethumb.png");
     background-size: 100% 100%;
@@ -29,7 +38,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 3;
+    z-index: 99;
     animation-name: bopiethumb;
     animation-duration: 2s;
     animation-iteration-count: 1; /* Plays once */
@@ -48,9 +57,55 @@
 
 .tree {
     position: absolute; 
-    background-image: url('tree.svg'); 
+    background-image: url('tree0apple.svg'); 
     width: 80px; 
     height: 120px;
     background-size: 100% 100%;
     z-index: 1;
+    font-size:0px;
+    animation-name: treegrow;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1; /* Plays once */
+    animation-fill-mode: forwards; /* Stays at the end state */
+    animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+  user-select: none;
+}
+
+.reporterparent {
+  position: absolute;
+  background-color: #e1f0ff;
+  color: #616a7d;
+  border-radius: 3px;
+  outline: solid;
+  outline-color: #d3d9e2;
+  outline-width: 2px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-align: left;
+  font-size: 12px;
+  text-indent: 7px;
+  z-index: 100;
+  display: inline-block;
+  padding: 2px;
+  margin: 5px;
+  user-select: none;
+}
+.reporterbody {
+  background-color: #ff8b1a;
+  color: white;
+  vertical-align: middle;
+  text-indent: 0px;
+  border-radius: 4px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  padding-left: 2px;
+  padding-right: 2px;
+  min-width: 30px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-left: 10px;
+  margin-right: 5px;
+  float: right;
 }
