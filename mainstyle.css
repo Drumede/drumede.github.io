@@ -196,3 +196,61 @@ h2 {
   left: 0px;
   z-index: -1000000;
 }
+
+.svg-container {
+  display: flex;
+  align-items: center; /* Vertically center content */
+  gap: 5px
+}
+
+button {
+
+    background-color: #659165; 
+    color: white; 
+    padding: 3px 7px; 
+    border: 0 solid black;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: Arial, sans-serif; 
+
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #7bb87b;
+}
+
+button:active {
+  background-color: #4c614c;
+}
+
+button.negative {
+
+    background-color: #916565; 
+}
+
+button.negative:hover {
+  background-color: #b87b7b;
+}
+
+button.negative:active {
+  background-color: #614c4c;
+}
+
+.controls-inline {
+  display: inline-block;
+}
+
+input[type="text"].speechbubble {
+  border: 0px solid;
+  outline: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  padding: 3px 7px; 
+  border-radius: 100px;
+  width: 400px;
+  color: #575E75;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: #659165;
+}
