@@ -448,12 +448,12 @@ _renderTextBubble2 = (scale) => {
     const radius = 6;
     const padding = 5;
     const minWidth = 55;
-    const pInset1 = 16;
-    const pInset2 = 50;
+    const pInset1 = 14;
+    const pInset2 = 48;
     const pDrop = 17;
     const pDropX = 8;
     const lineWidth = 6;
-    const lineHeight = 16;
+    const lineHeight = 17;
 
 
     const ctx = _ctx;
