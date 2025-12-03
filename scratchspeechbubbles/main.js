@@ -519,40 +519,33 @@ _renderTextBubble2 = (scale) => {
     if (_bubbleType != 'say') {
         if (_pointsLeft) {
             ctx.beginPath();
-            ellipse(ctx, 15, h + 4, 10, 5);
+            ellipse(ctx, 14.875, h + 4.25, 9.5, 5);
             ellipse(ctx, 11, h + 12, 6, 3);
             ctx.lineWidth = 4;
             ctx.stroke();
             ctx.fill();
 
             ctx.beginPath();
-            ellipse(ctx, 5, h + 16.5, 5, 3);
+            ellipse(ctx, 4.75, h + 16.375, 5, 3);
             ctx.lineWidth = 2;
             ctx.stroke();
             ctx.fill();
 
         } else {
             ctx.beginPath();
-            ellipse(ctx, w - 29, h + 4, 10, 5);
+            ellipse(ctx, w - 29, h + 4.25, 9.5, 5);
             ellipse(ctx, w - 20, h + 12, 6, 3);
             ctx.lineWidth = 4;
             ctx.stroke();
             ctx.fill();
 
             ctx.beginPath();
-            ellipse(ctx, w - 12, h + 16.5, 5, 3);
+            ellipse(ctx, w - 12, h + 16.375, 5, 3);
             ctx.lineWidth = 2;
             ctx.stroke();
             ctx.fill();
         }
     }
-
-
-    
-
-
-
-    
 
     ctx.fillStyle = 'black';
     const lines = _lines;
