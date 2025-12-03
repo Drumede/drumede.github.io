@@ -353,7 +353,7 @@ _reflowLines = () => {
     _textDirty = false;
 }
 
-_renderTextBubble = (scale) => {
+_renderTextBubble3 = (scale) => {
         const ctx = _ctx;
         
         if (_textDirty) {
@@ -444,6 +444,147 @@ _renderTextBubble = (scale) => {
         _renderedScale = scale;
     }
 
+_renderTextBubble2 = (scale) => {
+    const radius = 6;
+    const padding = 5;
+    const minWidth = 55;
+    const pInset1 = 16;
+    const pInset2 = 50;
+    const pDrop = 17;
+    const pDropX = 8;
+    const lineWidth = 6;
+    const lineHeight = 16;
+
+
+    const ctx = _ctx;
+    ctx.font = 'bold 14px Arial, Arial';
+
+    // find line length
+    const desiredWidth = 135;
+    _lines = textWrapper.wrapText(desiredWidth, _text);
+
+    // Measure width of longest line to avoid extra-wide bubbles
+    let longestLineWidth = 0;
+    for (const line of _lines) {
+        longestLineWidth = Math.max(longestLineWidth, measurementProvider.measureText(line));
+    }
+
+    longestLineWidth = Math.max(minWidth, Math.min(longestLineWidth + 8, desiredWidth))
+
+    let w = longestLineWidth + padding * 2 - 5;
+    let h = _lines.length * lineHeight + padding * 2;
+
+    ctx.width = Math.ceil(w * scale) + lineWidth;
+    ctx.height = Math.ceil(h * scale) + pDrop + lineWidth * 2;
+
+    ctx.scale(scale, scale);
+    ctx.translate(lineWidth * 0.5, lineWidth * 0.5);
+
+    
+    let insetW = w - radius;
+    let insetH = h - radius;
+
+    ctx.beginPath();
+
+    ctx.moveTo(radius, 0);
+    ctx.lineTo(insetW, 0);
+    arc(ctx, w, radius);
+    ctx.lineTo(w, insetH);
+    arc(ctx, insetW, h);
+    if (_bubbleType === 'say') {
+        if (_pointsLeft) {
+            ctx.lineTo(pInset2, h);
+            ctx.lineTo(pDropX, h + pDrop);
+            ctx.lineTo(pInset1, h);
+        } else {
+            ctx.lineTo(w - pInset1, h);
+            ctx.lineTo(w - pDropX, h + pDrop);
+            ctx.lineTo(w - pInset2, h);
+        }
+    }
+    ctx.lineTo(radius, h);
+    arc(ctx, 0, insetH);
+    ctx.lineTo(0, radius);
+    arc(ctx, radius, 0);
+
+    ctx.closePath();
+
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = '#A0A0A0';
+    ctx.lineWidth = lineWidth;
+
+    ctx.stroke();
+    ctx.fill();
+
+    if (_bubbleType != 'say') {
+        if (_pointsLeft) {
+            ctx.beginPath();
+            ellipse(ctx, 15, h + 4, 10, 5);
+            ellipse(ctx, 11, h + 12, 6, 3);
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.fill();
+
+            ctx.beginPath();
+            ellipse(ctx, 5, h + 16.5, 5, 3);
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fill();
+
+        } else {
+            ctx.beginPath();
+            ellipse(ctx, w - 29, h + 4, 10, 5);
+            ellipse(ctx, w - 20, h + 12, 6, 3);
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.fill();
+
+            ctx.beginPath();
+            ellipse(ctx, w - 12, h + 16.5, 5, 3);
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fill();
+        }
+    }
+
+
+    
+
+
+
+    
+
+    ctx.fillStyle = 'black';
+    const lines = _lines;
+    for (let lineNumber = 0; lineNumber < lines.length; lineNumber++) {
+        const line = lines[lineNumber];
+        ctx.fillText(
+            line,
+            padding + (longestLineWidth - measurementProvider.measureText(line)) / 2 - 2.5,
+            lineHeight * (1 + lineNumber) + 2
+        );
+    }
+}
+
+function arc (ctx, x, y) {
+    const roundness = 0.42;
+    let midX = (ctx.__currentPosition.x + x) / 2.0;
+    let midY = (ctx.__currentPosition.y + y) / 2.0;
+    let cx = midX + (roundness * (y - ctx.__currentPosition.y));
+    let cy = midY - (roundness * (x - ctx.__currentPosition.x));
+    ctx.quadraticCurveTo(cx, cy, x, y);
+}
+
+function ellipse(ctx, x, y, radiusX, radiusY) {
+    radiusX /= 2.0;
+    radiusY /= 2.0;
+    x += radiusX;
+    y += radiusY;
+    ctx.moveTo(x, y)
+    ctx.ellipse(x, y, radiusX, radiusY, 0, 0, Math.PI * 2);
+}
+
+
 async function saveSvg(id) {
     const svgElement = document.getElementById(id); 
     const serializer = new XMLSerializer();
@@ -463,7 +604,11 @@ function addBubble(type, text, pointsLeft,scale) {
     reset()
     _restyleCanvas();
     setTextBubble(type, text, pointsLeft);
-    _renderTextBubble(scale)
+    if (_style == '2.0') {
+        _renderTextBubble2(scale)
+    } else {
+        _renderTextBubble3(scale)
+    }
 
     let svg = _ctx.getSvg()
 
@@ -490,6 +635,7 @@ function speechBubbleGenerate() {
     const text = document.getElementById("speechinput").value
     const thinking = document.getElementById("thinker").checked ? 'think' : 'say'
     const pointsleft = document.getElementById("isleft").checked
+    _style = document.getElementById("style").checked ? '2.0' : '3.0' // i hate global variables
     addBubble(thinking,text,pointsleft,1)
 }
 
