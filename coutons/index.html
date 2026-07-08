@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html id="html">
+    <head>
+        <title id="title">Crouton</title>
+        <link rel="icon" type="image/x-icon" href="crouton.png">
+        <style>
+        .crouton-button {
+             width: 33px;
+             height: 31px;
+             background-image: url("crouton.png");
+             background-size: cover;
+             background-color: white;
+             border: none;
+             cursor: pointer;
+             text-align: center;
+             color: yellow;
+             font-weight: bold;
+          }
+    </style>
+    </head>
+    <body bgcolor="white" text="black" id="body">
+        <div style="text-align: center;">
+            <button class="crouton-button" onclick="less()">-</button>
+            <button class="crouton-button" onclick="more()">+</button>
+        </div>
+        <script>
+            let params = new URLSearchParams(document.location.search);
+            var croutons = parseInt(params.get("num"), 10);
+            if (isNaN(croutons)) {
+                croutons = 0;
+            }
+            const crouton = document.createElement("img")
+            crouton.src = "crouton.png"
+            crouton.alt = "Crouton"
+            for (let i = 0; i < croutons; i++) {
+                document.getElementById("body").appendChild(crouton.cloneNode())
+            }
+            document.getElementById("title").textContent = croutons +" Croutons"
+            if (croutons == 1) {
+                document.getElementById("title").textContent = "Crouton"
+            }
+
+            function more() {
+                params.set("num",croutons + 1)
+
+                window.location.search = params.toString();
+            }
+            function less() {
+                params.set("num",croutons - 1)
+
+                window.location.search = params.toString();
+            }
+            document.getElementById("body").appendChild(morebut)
+        </script>
+    </body>
+</html>
